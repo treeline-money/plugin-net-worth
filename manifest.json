@@ -1,0 +1,16 @@
+{
+  "author": "Treeline",
+  "description": "Track net worth over time: trend chart, period movers, and by-account or portfolio-asset-class breakdowns.",
+  "icon": "trending-up",
+  "id": "net-worth",
+  "main": "index.js",
+  "name": "Net Worth",
+  "permissions": {
+    "read": [
+      "accounts",
+      "balance_snapshots"
+    ],
+    "schemaName": "plugin_net_worth"
+  },
+  "version": "0.1.0"
+}
