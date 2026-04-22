@@ -62,10 +62,9 @@
       const vals = series.map((p) => p.v);
       const minV0 = Math.min(...vals);
       const maxV0 = Math.max(...vals);
-      // Anchor at zero so flat-looking data reads accurately against its
-      // actual magnitude. Extend past zero only if net worth went negative.
-      const minV = Math.min(0, minV0);
-      const maxV = Math.max(0, maxV0) * 1.08 || 1;
+      const span = maxV0 - minV0 || Math.max(Math.abs(maxV0) * 0.1, 1);
+      const minV = minV0 - span * 0.12;
+      const maxV = maxV0 + span * 0.12;
       const cw = W - PAD_L - PAD_R;
       const ch = height - PAD_T - PAD_B;
       const xAt = (i: number) => PAD_L + (i / (series.length - 1)) * cw;
