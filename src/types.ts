@@ -58,7 +58,6 @@ export interface CategoryGroup {
 export interface Mover {
   account: AccountWithSeries;
   chg: number;
-  beneficial: number;
 }
 
 export type AssetClassKey =

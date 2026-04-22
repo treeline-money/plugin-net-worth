@@ -65,8 +65,8 @@
   let chgPct = $derived(first !== 0 ? (chg / Math.abs(first)) * 100 : 0);
   let scrubPt = $derived(scrubIdx != null ? series[scrubIdx] ?? null : null);
 
-  let topGainers = $derived(movers.filter((m) => m.beneficial > 0).slice(0, 3));
-  let topLosers = $derived(movers.filter((m) => m.beneficial < 0).slice(0, 3));
+  let topGainers = $derived(movers.filter((m) => m.chg > 0).slice(0, 3));
+  let topLosers = $derived(movers.filter((m) => m.chg < 0).slice(0, 3));
 
   async function initialize() {
     loading = true;

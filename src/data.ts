@@ -245,9 +245,7 @@ export function computeMovers(
     if (sliced.length < 2) continue;
     const chg = sliced[sliced.length - 1].v - sliced[0].v;
     if (chg === 0) continue;
-    const side = CATS[a.cat].side;
-    const beneficial = side === "asset" ? chg : -chg;
-    out.push({ account: a, chg, beneficial });
+    out.push({ account: a, chg });
   }
   return out.sort((x, y) => Math.abs(y.chg) - Math.abs(x.chg));
 }
