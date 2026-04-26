@@ -75,7 +75,7 @@
   border: 1px solid var(--border-primary);
   border-radius: 6px;
   display: grid;
-  grid-template-columns: 380px 1fr;
+  grid-template-columns: 380px minmax(0, 1fr);
   gap: 0;
 }
 .nw-hero-left {
