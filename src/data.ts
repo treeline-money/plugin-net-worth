@@ -125,7 +125,7 @@ export function densifySeries(
 
   const sorted = snapshots.slice().sort((a, b) => a.snapshot_date.localeCompare(b.snapshot_date));
 
-  const start = new Date(sorted[0].snapshot_date + "T00:00:00");
+  const cursor = new Date(sorted[0].snapshot_date + "T00:00:00");
   const end = new Date(today);
   end.setHours(0, 0, 0, 0);
 
@@ -133,13 +133,14 @@ export function densifySeries(
   let snapIdx = 0;
   let lastBalance = sorted[0].balance;
 
-  for (let t = start.getTime(); t <= end.getTime(); t += DAY_MS) {
-    const iso = toISO(new Date(t));
+  while (cursor.getTime() <= end.getTime()) {
+    const iso = toISO(cursor);
     while (snapIdx < sorted.length && sorted[snapIdx].snapshot_date <= iso) {
       lastBalance = sorted[snapIdx].balance;
       snapIdx++;
     }
-    series.push({ t: new Date(t), v: lastBalance });
+    series.push({ t: new Date(cursor), v: lastBalance });
+    cursor.setDate(cursor.getDate() + 1);
   }
   return series;
 }
@@ -172,11 +173,13 @@ export function aggregateNetWorth(
   today.setHours(0, 0, 0, 0);
 
   const out: SeriesPoint[] = [];
-  for (let t = earliestStart; t <= today.getTime(); t += DAY_MS) {
-    const iso = toISO(new Date(t));
+  const cursor = new Date(earliestStart);
+  while (cursor.getTime() <= today.getTime()) {
+    const iso = toISO(cursor);
     let total = 0;
     for (const m of lookups) total += m.get(iso) ?? 0;
-    out.push({ t: new Date(t), v: total });
+    out.push({ t: new Date(cursor), v: total });
+    cursor.setDate(cursor.getDate() + 1);
   }
   return out;
 }
